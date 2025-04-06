@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>U-Calc</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <h1>Прогнозирование риска развития рака яичников у детей и подростков</h1>
+    <div class="container">
+      <form id="uterus-form">
+        <fieldset>
+          <legend>Контуры образования:</legend>
+          <select id="contours">
+            <option value="0">Четкие</option>
+            <option value="2">Нечеткие</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Возраст возникновения образования:</legend>
+          <select id="age">
+            <option value="3">До 5 лет</option>
+            <option value="2">6-18 лет</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Структура образования:</legend>
+          <select id="structure">
+            <option value="0">Однородная</option>
+            <option value="3">Неоднородная</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>CA-125:</legend>
+          <select id="ca125">
+            <option value="0">Не повышенный</option>
+            <option value="3">Повышенный</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>ХГЧ:</legend>
+          <select id="hcg">
+            <option value="0">Не повышенный</option>
+            <option value="3">Повышенный</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>АФП:</legend>
+          <select id="afp">
+            <option value="0">Не повышенный</option>
+            <option value="3">Повышенный</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Семейный анамнез:</legend>
+          <select id="history">
+            <option value="0">Нет</option>
+            <option value="2">Да</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Лимфоузлы:</legend>
+          <select id="nodes">
+            <option value="0">Не увеличены</option>
+            <option value="3">Увеличены</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Снижение гемоглобина:</legend>
+          <select id="hemoglobin">
+            <option value="0">Нет</option>
+            <option value="2">Да</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Жидкость в позадиматочном пространстве:</legend>
+          <select id="fluid">
+            <option value="0">Нет</option>
+            <option value="2">Да</option>
+          </select>
+        </fieldset>
+
+        <div>
+          <button type="submit">Рассчитать</button>
+        </div>
+      </form>
+
+      <div id="output" class="output hide"></div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('uterus-form');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const totalScore = [
+        'contours', 'age', 'structure', 'ca125', 'hcg', 'afp',
+        'history', 'nodes', 'hemoglobin', 'fluid'
+      ].reduce((sum, id) => sum + parseInt(document.getElementById(id).value), 0);
+
+      let interpretation = '';
+      let riskClass = '';
+      let riskLabel = '';
+
+      if (totalScore <= 5) {
+        riskClass = 'low-risk';
+        riskLabel = 'Низкий риск злокачественности (0-5 баллов)';
+        interpretation = `Существует минимальный риск возникновения злокачественных новообразований яичников. Показано консервативное ведение пациентки, наблюдение. При сохранении образования более 6 месяцев, решение вопроса об оперативном лечении.`;
+      } else if (totalScore <= 15) {
+        riskClass = 'medium-risk';
+        riskLabel = 'Средний риск злокачественности (6-15 баллов)';
+        interpretation = `Существует средний риск возникновения злокачественных новообразований в яичниках. Больше данных за доброкачественный характер образования. Рекомендуется динамическое наблюдение, тактика лечения определяется индивидуально с учетом клинической картины.`;
+      } else {
+        riskClass = 'high-risk';
+        riskLabel = 'Высокий риск злокачественности (16 и более баллов)';
+        interpretation = `Существует высокий риск возникновения злокачественных новообразований в яичниках. Рекомендуется консультация онколога и дальнейшее оперативное лечение.`;
+      }
+
+      output.className = `output ${riskClass}`;
+      output.innerHTML = `
+        <p><strong>Общий балл:</strong> ${totalScore}</p>
+        <p class="risk-level">${riskLabel}</p>
+        <p>${interpretation}</p>
+      `;
+      output.classList.remove('hide');
+    });
+  </script>
+</body>
+</html>

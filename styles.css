@@ -1,0 +1,112 @@
+body {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  color: #f5f6f7;
+  background-color: #d9cce6; /* пастельный фон */
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.container {
+  width: 90%;
+  max-width: 680px;
+  margin: 40px auto; /* увеличен отступ сверху */
+  background-color: rgba(27, 27, 50, 0.9);
+  padding: 24px; /* немного увеличен внутренний отступ */
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+fieldset,
+label,
+button,
+input,
+select {
+  margin-bottom: 10px;
+}
+
+legend {
+  font-weight: bold;
+}
+
+input,
+select {
+  min-height: 24px;
+  color: #4a1c28;
+  width: 100%;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  cursor: pointer;
+  background-color: #f8cdd6;
+  border: 2px solid #e8aab8;
+  color: #4a1c28;
+  padding: 10px 20px; /* увеличен размер кнопки */
+  font-size: 18px; /* увеличен шрифт */
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.output {
+  border: 2px solid #f5f6f7;
+  padding: 15px;
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #222;
+}
+
+.low-risk {
+  border-color: #4CAF50;
+  background-color: #dff0d8;
+}
+
+.medium-risk {
+  border-color: #FFC107;
+  background-color: #fff3cd;
+}
+
+.high-risk {
+  border-color: #F44336;
+  background-color: #f8d7da;
+}
+
+.risk-level {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  display: block;
+  border-bottom: 1px solid #888;
+  padding-bottom: 5px;
+}
+
+.hide {
+  display: none;
+}
